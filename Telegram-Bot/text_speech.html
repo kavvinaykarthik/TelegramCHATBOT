@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text To Speech</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right,pink , orange,red,yellow);
+        }
+        .voice{
+            width: 600px;
+            text-align: center;
+        }
+        #convert_text{
+            width: 100%;
+            height: 200px;
+            resize: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="voice">
+        <h1>Voice to text</h1>
+        <textarea name="" id="convert_text" cols="30" rows="10"></textarea>
+        <button id="click">
+            voice to text
+        </button>
+    </div>
+    <script>
+        click.addEventListener('click',function(){
+            var speech = true;
+            window.SpeechRecognition = window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.interimResults = true;
+
+
+            recognition.addEventListener('result',e=>{
+                const transcript = Array.from(e.results)
+                .map(result=>result[0])
+                .map(result => result.transcript)
+
+                convert_text.innerHTML= transcript;
+            })
+
+            if(speech == true){
+                recognition.start();
+            }
+        })
+    </script>
+</body>
+</html>
